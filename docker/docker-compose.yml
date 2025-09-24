@@ -6,6 +6,10 @@ services:
       context: ../
       target: production
       dockerfile: ./docker/Dockerfile
+    args:
+      - SUB_PATH=/mealie/ # your desired subpath
+    tags:
+      - mealie-custom-subpath
     restart: always
     volumes:
       - mealie-data:/app/data/
