@@ -1,23 +1,32 @@
 services:
   mealie:
     container_name: mealie
-    image: mealie:dev
+    image: mealie:latest
     build:
       context: ../
       target: production
       dockerfile: ./docker/Dockerfile
-    args:
-      - SUB_PATH=/mealie/ # your desired subpath
-    tags:
-      - mealie-custom-subpath
+      args:
+        - SUB_PATH=/mealie/ # Change this to the subpath you want
+      tags:
+        - mealie-custom-subpath
     restart: always
     volumes:
       - mealie-data:/app/data/
+    deploy:
+      resources:
+        limits:
+          memory: 500M
     ports:
-      - 9091:9000
+      - 9000:9000
     environment:
-      ALLOW_SIGNUP: "false"
+      # Set Backend ENV Variables Here
       LOG_LEVEL: "DEBUG"
+      ALLOW_SIGNUP: "false"
+      PUID: 1000
+      PGID: 1000
+      TZ: Asia/Singapore
+      BASE_URL: https://familie.go-han.net/
 
       DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
       # =====================================
