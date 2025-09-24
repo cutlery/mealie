@@ -4,6 +4,10 @@
 FROM node:20@sha256:abcf9c98af22ea2c5d33435143d9d8a5f6f191e1e1938a7650fc8b78c382b5a9 \
     AS frontend-builder
 
+# Source: https://github.com/mealie-recipes/mealie/discussions/695
+ARG SUB_PATH="" # assign a default, which will be used, if no arg is specified
+ENV SUB_PATH=$SUB_PATH # this environment var will only exist during docker build time
+
 WORKDIR /frontend
 
 COPY frontend .
